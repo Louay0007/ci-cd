@@ -1,0 +1,74 @@
+Pages: 2
+
+--- PAGE 1 ---
+
+TP – Mise en place d’un workflow CI d’une application 
+Springboot Angular Mysql avec GitHub Actions  
+ 
+ 
+Nouran Zouabi 
+ 
+Dans ce TP, une application complète et fonctionnelle (backend, frontend et base de données) 
+est fournie. Elle est déjà conteneurisée, et les fichiers nécessaires à son exécution Dockerfile 
+pour chaque service ainsi que le fichier docker-compose.yml sont disponibles. 
+Le but principal de ce TP est donc d’écrire un workflow CI/CD simple avec GitHub Actions, 
+afin d’automatiser les étapes suivantes : 
+• 
+Récupération du code source, 
+• 
+Construction des images (frontend et backend) à partir des Dockerfile existants, 
+• 
+Publication des images sur Docker Hub, 
+• 
+Test de l’application complète à l’aide du Docker Compose. 
+ 
+Partie 1 – Préparation et analyse  
+1. Examiner attentivement les Dockerfile du backend et du frontend fournis. 
+2. Vérifier le fichier docker-compose.yml et identifier : 
+o Les ports exposés par chaque service 
+o Les dépendances entre le backend et le frontend 
+3. Répondre aux questions suivantes : 
+o Quel est le rôle du Dockerfile dans ce projet ? 
+o Quelle commande permet de lancer l’application localement avec Docker 
+Compose ? 
+
+
+--- PAGE 2 ---
+
+TP – Mise en place d’un workflow CI d’une application 
+Springboot Angular Mysql avec GitHub Actions  
+ 
+ 
+Nouran Zouabi 
+Partie 2 – Écriture du workflow GitHub Actions  
+But : automatiser le pipeline CI/CD de l’application. 
+Étape 1 – Déclencheur et récupération du code 
+• 
+Configurer le workflow pour qu’il se déclenche à chaque push sur la branche main 
+• 
+Ajouter une étape permettant de récupérer le code du dépôt dans le runner GitHub 
+Actions 
+Étape 2 – Build et push des images Docker 
+1. Créer un token d’accès Docker Hub 
+2. Déclarer les informations suivantes comme secrets GitHub : 
+o DOCKERHUB_USERNAME 
+o DOCKERHUB_TOKEN 
+3. Dans le workflow : 
+o Se connecter à Docker Hub à l’aide des secrets 
+o Builder l’image Docker du backend 
+o Builder l’image Docker du frontend 
+o Pousser les deux images vers Docker Hub 
+Étape 3 – Test de l’application 
+• 
+Ajouter une étape dans le workflow pour lancer : 
+docker-compose up -d 
+• 
+Vérifier que : 
+o Les conteneurs démarrent correctement 
+o Le frontend communique avec le backend 
+Partie 4 – Validation finale  
+1. Effectuer un push sur la branche main pour déclencher le workflow. 
+2. Vérifier les points suivants : 
+o Le pipeline GitHub Actions s’exécute sans erreur 
+o Les images Docker sont bien présentes sur Docker Hub 
+o L’application est fonctionnelle en local via Docker Compose 
