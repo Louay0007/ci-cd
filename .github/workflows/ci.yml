@@ -71,12 +71,40 @@ jobs:
       - name: Start compose
         run: docker compose up -d
 
-      - name: Wait
-        run: sleep 20
-
       - name: Verify containers + API
         run: |
-          docker compose ps
+          docker compose ps -a
+
+          echo "Waiting for backend..."
+          for i in {1..30}; do
+            if curl -fsS http://localhost:8081/user/all > /dev/null; then
+              echo "Backend is up"
+              break
+            fi
+            if [ "$i" -eq 30 ]; then
+              echo "Backend did not become ready in time"
+              docker compose ps -a
+              docker compose logs spring-boot-app mysql
+              exit 1
+            fi
+            sleep 5
+          done
+
+          echo "Waiting for frontend..."
+          for i in {1..30}; do
+            if curl -fsS http://localhost:4200 > /dev/null; then
+              echo "Frontend is up"
+              break
+            fi
+            if [ "$i" -eq 30 ]; then
+              echo "Frontend did not become ready in time"
+              docker compose ps -a
+              docker compose logs angular-app
+              exit 1
+            fi
+            sleep 2
+          done
+
           curl -f http://localhost:8081/user/all
           curl -f http://localhost:4200
 
