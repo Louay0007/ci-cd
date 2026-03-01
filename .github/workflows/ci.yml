@@ -1,5 +1,5 @@
 name: CI-CD Spring Angular MySQL
-# retrigger: 2026-03-01
+# retrigger: 2026-03-02
 
 on:
   push:
