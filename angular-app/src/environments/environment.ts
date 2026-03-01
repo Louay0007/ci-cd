@@ -1,7 +1,4 @@
-export const environment :
-{
-  production?:boolean,
-}
-= {
-    production: false,
-  };
+export const environment = {
+  production: false,
+  apiBaseUrl: 'http://localhost:8081/user',
+};

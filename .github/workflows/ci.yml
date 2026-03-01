@@ -23,7 +23,9 @@ jobs:
 
       - name: Build backend jar
         working-directory: springboot/app
-        run: ./mvnw -B clean package -DskipTests
+        run: |
+          chmod +x mvnw
+          ./mvnw -B clean package -DskipTests
 
       - name: Setup Buildx
         uses: docker/setup-buildx-action@v3
